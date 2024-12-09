@@ -1,3 +1,5 @@
+// CURRENTLY
+// UNUSED
 import { useQuery } from '@apollo/client';
 
 import ThoughtList from '../components/ThoughtList/index.tsx';
