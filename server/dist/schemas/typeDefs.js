@@ -1,29 +1,27 @@
 const typeDefs = `
   type User {
-    _id: ID
-    username: String
-    email: String
+    _id: ID!
+    username: String!
+    email: String!
     password: String
-    thoughts: [Thought]!
+    games: [Game]!
   }
 
-  type Thought {
+  type Game {
+    _id: ID!
+    wordId: ID!
+    maskedWord: String!
+    solution: String
+    guesses: [String]!
+    numBadGuesses: Int!
+    isComplete: Boolean!
+    isWinner: Boolean!
+    userId: ID
+  }
+
+  type Word {
     _id: ID
-    thoughtText: String
-    thoughtAuthor: String
-    createdAt: String
-    comments: [Comment]!
-  }
-
-  type Comment {
-    _id: ID
-    commentText: String
-    createdAt: String
-  }
-
-  input ThoughtInput {
-    thoughtText: String!
-    thoughtAuthor: String!
+    text: String
   }
 
   input UserInput {
@@ -31,27 +29,44 @@ const typeDefs = `
     email: String!
     password: String!
   }
-  
+
+  input StartGameInput {
+    wordId: ID
+  }
+
+  input GuessInput {
+    gameId: ID!
+    letter: String!
+  }
+
   type Auth {
     token: ID!
     user: User
   }
 
-  type Query {
-    users: [User]
-    user(username: String!): User
-    thoughts: [Thought]!
-    thought(thoughtId: ID!): Thought
-    me: User
+type Query {
+  getUser(id: ID!): User
+  getAllUsers: [User!]!
+  getGame(id: ID!): Game
+  getAllGames(userId: ID!): [Game!]!
+  me: User
+}
+
+  type UserResponse {
+    _id: ID
+    username: String
+    email: String
+    games: [Game]
   }
 
-  type Mutation {
-    addUser(input: UserInput!): Auth
-    login(email: String!, password: String!): Auth
-    addThought(input: ThoughtInput!): Thought
-    addComment(thoughtId: ID!, commentText: String!): Thought
-    removeThought(thoughtId: ID!): Thought
-    removeComment(thoughtId: ID!, commentId: ID!): Thought
-  }
+type Mutation {
+  addUser(input: UserInput!): Auth
+  login(email: String!, password: String!): Auth
+  updateUser(id: ID!, username: String, email: String): User!
+  deleteUser(id: ID!): Boolean!
+  startGame(userId: ID!): Game!
+  guessWord(gameId: ID!, letter: String!): Game!
+  endGame(gameId: ID!): Game!
+}
 `;
 export default typeDefs;

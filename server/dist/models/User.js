@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
-// Define the schema for the User document
+// Define the User schema
 const userSchema = new Schema({
     username: {
         type: String,
@@ -12,24 +12,20 @@ const userSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        match: [/.+@.+\..+/, 'Must match an email address!'],
+        match: [/.+@.+\..+/, 'Must use a valid email address'],
     },
     password: {
         type: String,
         required: true,
-        minlength: 5,
     },
-    thoughts: [
+    games: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Thought',
+            ref: 'Game',
         },
     ],
-}, {
-    timestamps: true,
-    toJSON: { getters: true },
-    toObject: { getters: true },
-});
+}, { timestamps: true, toJSON: { virtuals: true } });
+// Middleware to hash the password before saving the user
 userSchema.pre('save', async function (next) {
     if (this.isNew || this.isModified('password')) {
         const saltRounds = 10;
@@ -37,8 +33,10 @@ userSchema.pre('save', async function (next) {
     }
     next();
 });
+// Method to check if the entered password is correct
 userSchema.methods.isCorrectPassword = async function (password) {
-    return bcrypt.compare(password, this.password);
+    return await bcrypt.compare(password, this.password);
 };
-const User = model('User', userSchema);
-export default User;
+// Create and export the User model
+const User = mongoose.model('User', userSchema);
+export { User };
