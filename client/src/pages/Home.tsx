@@ -30,6 +30,14 @@ const Home = () => {
             />
           )}
         </div>
+        <div>
+          <a href = "#">
+            <button>Login/Signup</button>
+          </a>
+          <a href = "#">
+            <button>Play as Guest</button>
+          </a>
+        </div>
       </div>
     </main>
   );
