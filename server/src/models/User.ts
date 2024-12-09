@@ -1,17 +1,17 @@
-import { Schema, model, Document } from 'mongoose';
+import mongoose, { Schema, type Document, Model } from 'mongoose';
 import bcrypt from 'bcrypt';
 
-// Define an interface for the User document
+// Define the User interface
 interface IUser extends Document {
   username: string;
   email: string;
   password: string;
-  thoughts: Schema.Types.ObjectId[];
-  isCorrectPassword(password: string): Promise<boolean>;
+  games: mongoose.Types.ObjectId[];
+  isCorrectPassword: (password: string) => Promise<boolean>;
 }
 
-// Define the schema for the User document
-const userSchema = new Schema<IUser>(
+// Define the User schema
+const userSchema: Schema<IUser> = new Schema(
   {
     username: {
       type: String,
@@ -23,40 +23,37 @@ const userSchema = new Schema<IUser>(
       type: String,
       required: true,
       unique: true,
-      match: [/.+@.+\..+/, 'Must match an email address!'],
+      match: [/.+@.+\..+/, 'Must use a valid email address'],
     },
     password: {
       type: String,
       required: true,
-      minlength: 5,
     },
-    thoughts: [
+    games: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Thought',
+        ref: 'Game',
       },
     ],
   },
-  {
-    timestamps: true,
-    toJSON: { getters: true },
-    toObject: { getters: true },
-  }
+  { timestamps: true, toJSON: { virtuals: true } }
 );
 
-userSchema.pre<IUser>('save', async function (next) {
+// Middleware to hash the password before saving the user
+userSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
-
   next();
 });
 
-userSchema.methods.isCorrectPassword = async function (password: string): Promise<boolean> {
-  return bcrypt.compare(password, this.password);
+// Method to check if the entered password is correct
+userSchema.methods.isCorrectPassword = async function (password: string) {
+  return await bcrypt.compare(password, this.password);
 };
 
-const User = model<IUser>('User', userSchema);
+// Create and export the User model
+const User: Model<IUser> = mongoose.model<IUser>('User', userSchema);
 
-export default User;
+export { type IUser, User };
