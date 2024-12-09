@@ -1,4 +1,5 @@
-import Thought from './Thought.js';
-import User from './User.js';
+import { IWord, Word } from './Word.js';
+import { IGame, Game } from './Game.js';
+import { IUser, User } from './User.js'
 
-export { Thought, User };
+export { IWord, Word, IGame, Game, IUser, User };

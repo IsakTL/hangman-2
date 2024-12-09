@@ -1,7 +1,7 @@
-import { Thought, User } from '../models/index.js';
+import { Game, User } from '../models/index.js';
+import { gameController, userController } from '../controllers/index.js';
 import { signToken, AuthenticationError } from '../utils/auth.js'; 
 
-// Define types for the arguments
 interface AddUserArgs {
   input:{
     username: string;
@@ -15,56 +15,30 @@ interface LoginUserArgs {
   password: string;
 }
 
-interface UserArgs {
-  username: string;
-}
-
-interface ThoughtArgs {
-  thoughtId: string;
-}
-
-interface AddThoughtArgs {
-  input:{
-    thoughtText: string;
-    thoughtAuthor: string;
-  }
-}
-
-interface AddCommentArgs {
-  thoughtId: string;
-  commentText: string;
-}
-
-interface RemoveCommentArgs {
-  thoughtId: string;
-  commentId: string;
-}
-
 const resolvers = {
   Query: {
-    users: async () => {
-      return User.find().populate('thoughts');
+    getUser: async (_: any, { id }: { id: string }) => {
+      return await User.findById(id);
     },
-    user: async (_parent: any, { username }: UserArgs) => {
-      return User.findOne({ username }).populate('thoughts');
+    getAllUsers: async () => {
+      return await User.find();
     },
-    thoughts: async () => {
-      return await Thought.find().sort({ createdAt: -1 });
+    getGame: async (_: any, { id }: { id: string }) => {
+      return await Game.findById(id);
     },
-    thought: async (_parent: any, { thoughtId }: ThoughtArgs) => {
-      return await Thought.findOne({ _id: thoughtId });
+    getAllGames: async (_: any, { userId }: { userId: string }) => {
+      return await Game.find({ userId });
     },
-    // Query to get the authenticated user's information
-    // The 'me' query relies on the context to check if the user is authenticated
     me: async (_parent: any, _args: any, context: any) => {
       // If the user is authenticated, find and return the user's information along with their thoughts
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate('thoughts');
+        return User.findOne({ _id: context.user._id }).populate('games');
       }
       // If the user is not authenticated, throw an AuthenticationError
       throw new AuthenticationError('Could not authenticate user.');
     },
   },
+  
   Mutation: {
     addUser: async (_parent: any, { input }: AddUserArgs) => {
       // Create a new user with the provided username, email, and password
@@ -100,73 +74,20 @@ const resolvers = {
       // Return the token and the user
       return { token, user };
     },
-    addThought: async (_parent: any, { input }: AddThoughtArgs, context: any) => {
-      if (context.user) {
-        const thought = await Thought.create({ ...input });
-
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { thoughts: thought._id } }
-        );
-
-        return thought;
-      }
-      throw AuthenticationError;
-      ('You need to be logged in!');
+    updateUser: async (_: any, { id, username, email }: { id: string; username?: string; email?: string}) => {
+      return await userController.updateUser(id, { username, email });
     },
-    addComment: async (_parent: any, { thoughtId, commentText }: AddCommentArgs, context: any) => {
-      if (context.user) {
-        return Thought.findOneAndUpdate(
-          { _id: thoughtId },
-          {
-            $addToSet: {
-              comments: { commentText, commentAuthor: context.user.username },
-            },
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
-      }
-      throw AuthenticationError;
+    deleteUser: async (_: any, { id }: { id: string }) => {
+      return await userController.deleteUser(id);
     },
-    removeThought: async (_parent: any, { thoughtId }: ThoughtArgs, context: any) => {
-      if (context.user) {
-        const thought = await Thought.findOneAndDelete({
-          _id: thoughtId,
-          thoughtAuthor: context.user.username,
-        });
-
-        if(!thought){
-          throw AuthenticationError;
-        }
-
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { thoughts: thought._id } }
-        );
-
-        return thought;
-      }
-      throw AuthenticationError;
+    startGame: async (_: any, { userId }: { userId: string }) => {
+      return await gameController.startGame(userId);
     },
-    removeComment: async (_parent: any, { thoughtId, commentId }: RemoveCommentArgs, context: any) => {
-      if (context.user) {
-        return Thought.findOneAndUpdate(
-          { _id: thoughtId },
-          {
-            $pull: {
-              comments: {
-                _id: commentId,
-                commentAuthor: context.user.username,
-              },
-            },
-          },
-          { new: true }
-        );
-      }
-      throw AuthenticationError;
+    guessWord: async (_: any, { gameId, letter }: { gameId: string; letter: string }) => {
+      return await gameController.guessWord(gameId, letter);
+    },
+    endGame: async (_: any, { gameId }: { gameId: string }) => {
+      return await gameController.endGame(gameId);
     },
   },
 };
