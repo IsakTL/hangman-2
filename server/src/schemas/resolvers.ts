@@ -1,4 +1,4 @@
-import { Game, User } from '../models/index.js';
+import { Game, User, Word } from '../models/index.js';
 import { gameController, userController } from '../controllers/index.js';
 import { signToken, AuthenticationError } from '../utils/auth.js'; 
 
@@ -89,6 +89,11 @@ const resolvers = {
     endGame: async (_: any, { gameId }: { gameId: string }) => {
       return await gameController.endGame(gameId);
     },
+    getRandomWord: async(_: any, _args: any) => {
+      const randomWord = await Word.aggregate([{ $sample: { size: 1 }}])
+      console.log(randomWord)
+      return randomWord
+    }
   },
 };
 

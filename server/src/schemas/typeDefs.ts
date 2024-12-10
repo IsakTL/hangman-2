@@ -67,6 +67,7 @@ type Mutation {
   startGame(userId: ID!): Game!
   guessWord(gameId: ID!, letter: String!): Game!
   endGame(gameId: ID!): Game!
+  getRandomWord: Word
 }
 `;
 
