@@ -64,9 +64,6 @@ type Mutation {
   login(email: String!, password: String!): Auth
   updateUser(id: ID!, username: String, email: String): User!
   deleteUser(id: ID!): Boolean!
-  startGame(userId: ID!): Game!
-  guessWord(gameId: ID!, letter: String!): Game!
-  endGame(gameId: ID!): Game!
   getRandomWord: Word
 }
 `;

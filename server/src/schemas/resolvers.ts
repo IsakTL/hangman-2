@@ -1,5 +1,5 @@
 import { Game, User, Word } from '../models/index.js';
-import { gameController, userController } from '../controllers/index.js';
+import { userController } from '../controllers/index.js';
 import { signToken, AuthenticationError } from '../utils/auth.js'; 
 
 interface AddUserArgs {
@@ -80,20 +80,16 @@ const resolvers = {
     deleteUser: async (_: any, { id }: { id: string }) => {
       return await userController.deleteUser(id);
     },
-    startGame: async (_: any, { userId }: { userId: string }) => {
-      return await gameController.startGame(userId);
-    },
-    guessWord: async (_: any, { gameId, letter }: { gameId: string; letter: string }) => {
-      return await gameController.guessWord(gameId, letter);
-    },
-    endGame: async (_: any, { gameId }: { gameId: string }) => {
-      return await gameController.endGame(gameId);
-    },
-    getRandomWord: async(_: any, _args: any) => {
-      const randomWord = await Word.aggregate([{ $sample: { size: 1 }}])
-      console.log(randomWord)
-      return randomWord
-    }
+    getRandomWord: async (_: any, _args: any) => {
+      const randomWordArray = await Word.aggregate([{ $sample: { size: 1 } }]);
+      console.log(randomWordArray)
+      if (randomWordArray.length > 0) {
+        const randomWord = randomWordArray[0];
+        console.log("Random Word:", randomWord);
+        return randomWord; // Ensure returning a single object
+      }
+      throw new Error("No words found in the database.");
+    },      
   },
 };
 
