@@ -10,6 +10,7 @@ import SingleThought from './pages/SingleThought';
 import Profile from './pages/Profile';
 import ErrorPage from './pages/Error';
 import Hangman from './pages/Hangman.js';
+// import Leaderboard from './pages/Leaderboard.js'; UNCOMMENT WHEN READY 
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,9 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Hangman />
+      }, {
+        path: '/leadeboard', 
+        // element: <Leaderboard /> UNCOMMENT WHEN READY  
       }, {
         path: '/login',
         element: <Login />
