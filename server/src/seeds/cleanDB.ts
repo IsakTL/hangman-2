@@ -1,20 +1,21 @@
-import { Thought, User } from '../models/index.js';
-import process from 'process';
+import mongoose from "mongoose";
+import { User, Game, Word } from "../models";
 
-const cleanDB = async (): Promise<void> => {
+const cleanDB = async () => {
   try {
-    // Delete documents from THought collection
-    await Thought.deleteMany({});
-    console.log('Thought collection cleaned.');
+    await mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/yourdb");
 
-    // Delete documents from User collection
+    console.log("Clearing database...");
     await User.deleteMany({});
-    console.log('User collection cleaned.');
-
+    await Game.deleteMany({});
+    await Word.deleteMany({});
+    
+    console.log("Database cleared!");
+    process.exit(0);
   } catch (err) {
-    console.error('Error cleaning collections:', err);
+    console.error("Error while clearing database:", err);
     process.exit(1);
   }
 };
 
-export default cleanDB;
+cleanDB();
