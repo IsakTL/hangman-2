@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import { User, Game, Word } from "../models";
+import { User, Game, Word } from "../models/index.js";
+import wordData from './wordSeeds.json' with { type: 'json' };
 
 const seed = async () => {
   try {
@@ -17,9 +18,7 @@ const seed = async () => {
 
     // Words
     const words = await Word.insertMany([
-      { text: "javascript" },
-      { text: "graphql" },
-      { text: "typescript" },
+      ...wordData.words
     ]);
 
     console.log("Words seeded:", words);

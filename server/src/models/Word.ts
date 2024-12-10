@@ -15,7 +15,6 @@ const wordSchema = new Schema<IWord>(
     },
   },
   {
-    _id: false,
     toJSON: { getters: true },
     toObject: { getters: true },
     timestamps: true,

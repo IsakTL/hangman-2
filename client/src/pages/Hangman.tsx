@@ -1,7 +1,8 @@
 import Hangman from '../components/Hangman/index.tsx';
-import HangmanDrawing from '../components/HangmanDrawing/index.tsx';
+import HangmanDrawing from '../components/HangmanDrawing';
 import { arrayWords } from '../utils/words.ts';
 import { useState } from 'react';
+
 
 const HangmanPage: React.FC = () => {
   const [word, setWord] = useState<string[]>(arrayWords);
