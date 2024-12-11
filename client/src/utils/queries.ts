@@ -6,55 +6,38 @@ export const QUERY_USER = gql`
       _id
       username
       email
-      thoughts {
-        _id
-        thoughtText
-        createdAt
-      }
+      password
+      games
     }
   }
 `;
 
-export const QUERY_THOUGHTS = gql`
-  query getThoughts {
-    thoughts {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-    }
-  }
-`;
-
-export const QUERY_SINGLE_THOUGHT = gql`
-  query getSingleThought($thoughtId: ID!) {
-    thought(thoughtId: $thoughtId) {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-        commentAuthor
-        createdAt
-      }
+export const QUERY_GAME = gql`
+  query getgames{
+     getgames{
+       _id
+    wordId
+    maskedWord
+    solution
+    guesses
+    numBadGuesses
+    isComplete
+    isWinner
+    userId
     }
   }
 `;
 
 export const QUERY_ME = gql`
-  query me {
-    me {
+  query Me {
+  me {
+    _id
+    username
+    email
+    password
+    games {
       _id
-      username
-      email
-      thoughts {
-        _id
-        thoughtText
-        thoughtAuthor
-        createdAt
-      }
     }
   }
+}
 `;

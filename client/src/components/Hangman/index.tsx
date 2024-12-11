@@ -1,49 +1,46 @@
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 interface GameProps {
-  word: string[],
-  currentWord: string,
+  word: string,
   guessedLetters: string[],
   incorrectGuesses: number,
   maxAttempts: number,
-  setWord: Dispatch<SetStateAction<string[]>>,
-  setCurrentWord: Dispatch<SetStateAction<string>>,
   setGuessedLetters: Dispatch<SetStateAction<string[]>>,
   setIncorrectGuesses: Dispatch<SetStateAction<number>>,
+  fetchRandomWord: Dispatch<SetStateAction<void>>,
 }
 
-const Hangman = ({word, currentWord, guessedLetters, incorrectGuesses, maxAttempts, setWord, setCurrentWord, setGuessedLetters, setIncorrectGuesses}: GameProps) => {
-  useEffect(() => {
-    randomPoint()
-  }, [])
-
-  const randomPoint = () => {
-    let randomPoint = Math.floor(Math.random() * word.length);
-    setCurrentWord(word[randomPoint])
-  }
+const Hangman = ({
+  word, 
+  guessedLetters, 
+  incorrectGuesses, 
+  maxAttempts, 
+  setGuessedLetters, 
+  setIncorrectGuesses,
+  fetchRandomWord
+}: GameProps) => {
 
   const getWordDisplay = () => {
-
-    return currentWord
+  // console.log("currentword: ",word)
+    return word
       .split('')
       .map((letter) => (guessedLetters.includes(letter.toUpperCase()) ? letter : '_'))
       .join(' ');
   }
+    
   const isGameOver = () =>
     incorrectGuesses >= maxAttempts || getWordDisplay().indexOf('_') === -1;
 
   const handleGuess = (letter: string) => {
     if (isGameOver() || guessedLetters.includes(letter)) return;
     setGuessedLetters((prev) => [...prev, letter]);
-    if (!currentWord.toUpperCase().includes(letter)) setIncorrectGuesses((prev) => prev + 1);
+    if (!word.toUpperCase().includes(letter)) setIncorrectGuesses((prev) => prev + 1);
   };
 
-  const resetGame = () => {
-    setWord(word);
-    setCurrentWord('')
+  const resetGame = async () => {
+    await fetchRandomWord()
     setGuessedLetters([]);
     setIncorrectGuesses(0);
-    randomPoint();
   };
 
   return (

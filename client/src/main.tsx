@@ -1,13 +1,10 @@
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-
-
 import App from './App.jsx';
-// import Home from './pages/Home';  UNCOMMENT IF WE END UP USING THIS
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-// import SingleThought from './pages/SingleThought';
-// import Profile from './pages/Profile';
+import Profile from './pages/Profile.js';
+
 import ErrorPage from './pages/Error';
 import Hangman from './pages/Hangman.js';
 
@@ -26,18 +23,10 @@ const router = createBrowserRouter([
       }, {
         path: '/signup',
         element: <Signup />
-      }, 
-      // {
-      //   path: '/profiles/:username',
-      //   element: <Profile />
-      // }, {
-      //   path: '/me',
-      //   element: <Profile />
-      // }, 
-      // {
-      //   path: '/thoughts/:thoughtId',
-      //   element: <SingleThought />
-      // }, 
+      }, {
+        path: '/me',
+        element: <Profile />
+      },
     ]
   },
 ]);
