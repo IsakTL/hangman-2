@@ -4,6 +4,7 @@ import App from './App.jsx';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Profile from './pages/Profile.js';
+
 import ErrorPage from './pages/Error';
 import Hangman from './pages/Hangman.js';
 
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
       }, {
         path: '/me',
         element: <Profile />
-      }, 
+      },
     ]
   },
 ]);
