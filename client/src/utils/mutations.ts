@@ -5,8 +5,8 @@ export const LOGIN_USER = gql`
     login(email: $email, password: $password) {
       token
       user {
-        _id
-        username
+        email
+        password
       }
     }
   }
@@ -15,42 +15,36 @@ export const LOGIN_USER = gql`
 export const ADD_USER = gql`
   mutation Mutation($input: UserInput!) {
   addUser(input: $input) {
+    token
     user {
       username
-      _id
+      email
+      password
     }
-    token
   }
 }
 `;
 
-export const ADD_THOUGHT = gql`
-  mutation AddThought($input: ThoughtInput!) {
-    addThought(input: $input) {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-      }
-    }
+export const UPDATE_USER = gql`
+ mutation UpdateUser($updateUserId: ID!, $username: String, $email: String) {
+  updateUser(id: $updateUserId, username: $username, email: $email) {
+    email
+    username
   }
+}
 `;
 
-export const ADD_COMMENT = gql`
-  mutation addComment($thoughtId: ID!, $commentText: String!) {
-    addComment(thoughtId: $thoughtId, commentText: $commentText) {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-        createdAt
-      }
-    }
+export const DELETE_USER = gql`
+ mutation DeleteUser($deleteUserId: ID!) {
+  deleteUser(id: $deleteUserId)
+}
+`;
+
+export const GET_RANDOM_WORD = gql`
+mutation GetRandomWord {
+  getRandomWord {
+    _id
+    text
   }
+}
 `;
