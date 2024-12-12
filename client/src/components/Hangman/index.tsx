@@ -48,14 +48,15 @@ const Hangman = ({
       <h2>{getWordDisplay()}</h2>
       <div>
         {'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map((letter) => (
-          <button
+          <button className='letter-button'
             key={letter}
             onClick={() => handleGuess(letter)}
             disabled={guessedLetters.includes(letter) || isGameOver()}
             style={{
               margin: '5px',
               padding: '10px',
-              backgroundColor: guessedLetters.includes(letter) ? '#aaa' : '#fff',
+              backgroundColor: guessedLetters.includes(letter) ? '#aaa' : '#000',
+              color:'rgb(108, 247, 83)',
               cursor: guessedLetters.includes(letter) ? 'not-allowed' : 'pointer',
             }}
           >
@@ -65,7 +66,7 @@ const Hangman = ({
       </div>
       <p>Incorrect Guesses: {incorrectGuesses} / {maxAttempts}</p>
       {isGameOver() && (
-        <h3>{getWordDisplay().indexOf('_') === -1 ? 'You Win! PLACEHOLDER' : 'Game Over! XoX'}</h3>
+        <h3>{getWordDisplay().indexOf('_') === -1 ? 'You Win! (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧' : 'Game Over! \\(X o X)/'}</h3>
       )}
       {isGameOver() && (
         <button onClick={resetGame} style={{ marginTop: '20px', padding: '10px' }}>

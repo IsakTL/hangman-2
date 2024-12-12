@@ -238,7 +238,7 @@ legend {
   /* 1 */
   padding: 0;
   /* 3 */
-  white-space: normal;
+  white-space: pre;
   /* 1 */
 }
 
@@ -373,7 +373,8 @@ h6 {
 }
 
 h1 {
-  font-size: 2.25rem;
+  font-size: 1rem;
+  line-height: 1;
 }
 
 h2 {
@@ -918,7 +919,7 @@ a:hover {
 
 /* BACKGROUND UTILS */
 .bg-primary {
-  background-color: #2d3e50 !important;
+  background-color: #000 !important;
 }
 
 .bg-info {
@@ -1028,21 +1029,22 @@ a:hover {
 }
 
 .btn.btn-info {
-  background-color: #1bbc9b;
-  color: #ffffff;
+  background-color: rgb(101, 220, 81);
+  color: #000;
 }
 
 .btn.btn-info:hover {
-  background-color: #31e1bd;
+  background-color: rgb(108, 250, 83);
 }
 
 .btn.btn-light {
-  background-color: #d9e9e8;
-  color: #1a1a1a;
+  background-color: #000;
+  border: 1px dotted rgb(108, 247, 83);
+  color: rgb(108, 247, 83);
 }
 
 .btn.btn-light:hover {
-  background-color: #84b8b4;
+  background-color: #142907;
 }
 
 .btn.btn-dark {
@@ -1331,6 +1333,10 @@ label form [type='radio'] {
 
 /* col-sm */
 @media screen and (min-width: 640px) {
+  #ASCII-title {
+    font-size:60%;
+  }
+
   .col-sm-auto {
     flex-grow: 1;
     flex-basis: 0;
@@ -1516,6 +1522,12 @@ label form [type='radio'] {
   }
   .align-content-center-md {
     align-content: center;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  #ASCII-title {
+      font-size: 100%;
   }
 }
 

@@ -12,8 +12,8 @@ const Header = () => {
     <header className="bg-primary text-light mb-4 py-3 flex-row align-center">
       <div className="container flex-row justify-space-between-lg justify-center align-center">
         <div>
-          <Link className="text-light" to="/">
-            <h1 className="m-0">Hangman 2</h1>
+          <Link to="/">
+            <h1 className="m-0" style={{whiteSpace:'pre'}}>Hangman 2</h1>
           </Link>
           <p className="m-0">Get back to your life.</p>
         </div>

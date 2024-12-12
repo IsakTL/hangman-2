@@ -6,6 +6,7 @@
   height="400" 
   viewBox="0 0 200 200"
   style="backgroundColor: #f5f5f5"
+  title="A glyph of a hanged man"
 >
   <!-- {/* Base */} -->
   <line x1="50" y1="200" x2="150" y2="200" stroke="black" strokeWidth="4" fill="#ffd700" />
