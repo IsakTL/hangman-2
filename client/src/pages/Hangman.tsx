@@ -1,5 +1,6 @@
 import Hangman from '../components/Hangman/index.tsx';
 import HangmanDrawing from '../components/HangmanDrawing';
+import Title from '../components/Title';
 // import { arrayWords } from '../utils/words.ts';
 import { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
@@ -28,7 +29,8 @@ const HangmanPage: React.FC = () => {
 },[])
   return (
     <div>
-      <h1 style={{ textAlign: 'center', marginTop: '20px' }}>Welcome to Hangman 2!</h1>
+      <h1 style={{ textAlign: 'center'}}>Welcome to...</h1>
+      <Title />
       <HangmanDrawing incorrectGuesses={incorrectGuesses} />
       <Hangman 
       word={word} 

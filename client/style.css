@@ -1,0 +1,39 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: black;
+    color:rgb(108, 247, 83);
+    margin: 0;
+}
+h1, h2, h4, p {
+    /* text-align: left; */
+    font-size: 100%;
+    font-weight: normal;
+    color:rgb(108, 247, 83);
+}
+#ASCII-title {
+    font-size:35%;
+}
+
+.letter-button {
+    font-size: 125%;
+}
+
+.letter-button:enabled {
+    border-left-color: rgb(108, 247, 83) !important;
+    border-top-color: rgb(108, 247, 83) !important;
+    border-right-color: rgb(93, 207, 74) !important;
+    border-bottom-color: rgb(93, 207, 74) !important;
+    background-color: rgb(110, 254, 85) !important;
+    color: black !important;
+    font-weight: bolder;
+    font-size: 125%;
+}
+.letter-button:disabled {
+    border-left-color: rgb(37, 74, 30);
+    border-top-color: rgb(37, 74, 30);
+    border-right-color: rgb(75, 168, 58);
+    border-bottom-color: rgb(75, 168, 58);
+    background-color: rgb(20, 37, 14) !important;
+    /* Do not do what I have just done here, for RUIN awaits all who composite multiple non-reset stylesheets. */
+}
+
