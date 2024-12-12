@@ -35,9 +35,8 @@ As a player, I want to see my score displayed on the screen, so that I can track
 As a player, I want to view my score history, so that I can monitor my improvement over time.
 Account Management:
 As a player, I want to create an account and log in securely, so that my progress and scores are saved.
-As a player, I want to customize my profile (name, numbers of wins, and scores), so that my account feels personal.
+As a player, I want to have my profile (username and e-mail adress), so that my account feels personal.
 Learning and Accessibility:
-As a player, I want to receive feedback on the correct word after failing to guess it, so that I can learn and improve.
 As a player, I want the game to work on both desktop and mobile devices, so that I can play from anywhere.
 
 ## Technologies Used
@@ -61,8 +60,8 @@ As a player, I want the game to work on both desktop and mobile devices, so that
     - npm install
 - Configure environment variables:
     - Create a .env file in the root directory with the following keys:
-    - MONGODB_URI=<Your MongoDB URI>
-    - JWT_SECRET=<Your JWT Secret>
+    - MONGODB_URI
+    - JWT_SECRET_KEY
     - PORT=3000
 - Start the application:
     - npm run start
@@ -78,7 +77,7 @@ As a player, I want the game to work on both desktop and mobile devices, so that
 Screenshot
 
 ## Deployed Application
-Access the deployed application here: 
+Access the deployed application here: https://hangman-2.onrender.com
 
 ## Contributing
 Contributions are welcome! Follow these steps:

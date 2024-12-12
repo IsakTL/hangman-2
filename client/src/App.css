@@ -1716,3 +1716,27 @@ label form [type='radio'] {
     align-content: center;
   }
 }
+
+
+
+#update-user-modal {
+  background-color: rgba(0,0,0, 0.8);
+  position:fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#update-user-modal form {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
