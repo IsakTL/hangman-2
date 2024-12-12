@@ -82,10 +82,10 @@ const resolvers = {
     },
     getRandomWord: async (_: any, _args: any) => {
       const randomWordArray = await Word.aggregate([{ $sample: { size: 1 } }]);
-      console.log(randomWordArray)
+      // console.log(randomWordArray)
       if (randomWordArray.length > 0) {
         const randomWord = randomWordArray[0];
-        console.log("Random Word:", randomWord);
+        // console.log("Random Word:", randomWord);
         return randomWord; // Ensure returning a single object
       }
       throw new Error("No words found in the database.");

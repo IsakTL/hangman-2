@@ -20,3 +20,20 @@
 // ); 
 
 // leaderboardSchema
+
+// db.gamescores.aggregate( [
+//     {
+//        $group:
+//           {
+//              playerId:
+//                 {
+//                    $topN:
+//                    {
+//                       output: ["$playerId", "$score"],
+//                       sortBy: { "score": -1 },
+//                       n:10
+//                    }
+//                 }
+//           }
+//     }
+//  ] )

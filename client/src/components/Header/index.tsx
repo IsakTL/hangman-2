@@ -15,7 +15,7 @@ const Header = () => {
           <Link className="text-light" to="/">
             <h1 className="m-0">Hangman 2</h1>
           </Link>
-          <p className="m-0">Get into the mind of a hanged man</p>
+          <p className="m-0">Get back to your life.</p>
         </div>
         <div>
           {/* Checking if the user is logged in to conditionally render profile link and logout button */}
@@ -36,9 +36,6 @@ const Header = () => {
               </Link>
               <Link className="btn btn-lg btn-light m-2" to="/signup">
                 Signup
-              </Link>
-              <Link className="btn btn-lg btn-light m-2" to="/leaderboard">
-                Leaderboard
               </Link>
             </>
           )}
