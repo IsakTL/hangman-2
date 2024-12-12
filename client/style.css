@@ -1,0 +1,19 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: black;
+    color:rgb(108, 247, 83);
+    margin: 0;
+}
+h1, h2 {
+    white-space:pre;
+    /* text-align: left; */
+    font-size: 100%;
+    font-weight: normal;
+}
+*:disabled {
+    border-left-color: rgb(84, 168, 69);
+    border-top-color: rgb(84, 168, 69);
+    border-right-color: rgb(43, 101, 33);
+    border-bottom-color: rgb(43, 101, 33);
+    background-color: black;
+}

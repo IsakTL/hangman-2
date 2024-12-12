@@ -24,16 +24,7 @@ const Footer: React.FC = () => {
           </button>
         )}
         <h4>
-          Made with{' '}
-          <span
-            className="emoji"
-            role="img"
-            aria-label="heart"
-            aria-hidden="false"
-          >
-            ❤️
-          </span>{' '}
-          by the Tech Thoughts team.
+          Made with {'<3'} by Licia, Kane, Jack, and Isak.
         </h4>
       </div>
     </footer>
